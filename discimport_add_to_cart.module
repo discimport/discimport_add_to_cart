@@ -5,3 +5,69 @@
  */
 
 include_once 'discimport_add_to_cart.features.inc';
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Since there are so many patches for such a small module, some will probably
+ * fail. This implements Commerce Stock. We're doing it here because it changes
+ * so much of the handler it would be impossible to manage.
+ *
+ * @todo: Try to move this upstream into Commerce Add to Cart Extras.
+ */
+function discimport_add_to_cart_form_alter(&$form, &$form_state, $form_id) {
+  $is_quantity_form = FALSE;
+
+  if (strpos($form_id, 'views_form_') === 0) {
+    $view = $form_state['build_info']['args'][0];
+    foreach ($view->field as $field) {
+      if ($field instanceof commerce_add_to_cart_extras_handler_field_quantity) {
+        $is_quantity_form = TRUE;
+      }
+    }
+  }
+
+  // Disable input boxes if needed, add validator.
+  if ($is_quantity_form) {
+    // Add our validator to invoke stock.
+    $form['#validate'][] = 'discimport_add_to_cart_stock_validation';
+
+    foreach (element_children($form['add_to_cart_quantity']) as $row_num) {
+      // Commerce Stock doesn't provide this in its own function, so it has
+      // to be replicated.
+      $product = commerce_product_load($form['add_to_cart_quantity'][$row_num]['#product_id']);
+      $stop = null;
+      $product_wrapper = entity_metadata_wrapper('commerce_product', $product);
+
+      if(isset($product_wrapper->commerce_stock) ){
+        if (!(isset($product_wrapper->commerce_stock_override) && $product_wrapper->commerce_stock_override->value() == 1)) {
+          if($product_wrapper->commerce_stock->value() <= 0){
+            $form['add_to_cart_quantity'][$row_num]['#disabled'] = TRUE;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Validation handler to invoke Stock check.
+ */
+function discimport_add_to_cart_stock_validation($form, &$form_state) {
+  foreach (element_children($form['add_to_cart_quantity']) as $row_num) {
+    if ($form_state['values']['add_to_cart_quantity'][$row_num] > 0) {
+      // We have a quantity worth checking.
+
+      // Since we have a different form state, provide the Commerce Stock
+      // validation module with what it needs.
+
+      $stock_form_state = array(
+        'input' => array(
+          'quantity' => $form_state['values']['add_to_cart_quantity'][$row_num],
+          'product_id' => $form['add_to_cart_quantity'][$row_num]['#product_id'],
+        ),
+      );
+      commerce_stock_add_to_cart_validate($form, $stock_form_state);
+    }
+  }
+}
