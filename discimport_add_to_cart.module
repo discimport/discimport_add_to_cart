@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Discimport Add To Cart feature.
+ */
+
+include_once 'discimport_add_to_cart.features.inc';

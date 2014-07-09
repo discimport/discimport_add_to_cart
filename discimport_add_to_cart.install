@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Installation file for module
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function discimport_add_to_cart_enable() {
+  // Place View block
+
+  // Rebuild the feature.
+  features_include(TRUE);
+  $module = 'discimport_add_to_cart';
+  $feature = feature_load($module);
+  $items[$module] = array_keys($feature->info['features']);
+  _features_restore('enable', $items);
+  _features_restore('rebuild', $items);
+
+  $default_theme = variable_get('theme_default', 'frisbee');
+  // Make sure that the region list is populated for our theme.
+  drupal_static_reset();
+  _block_rehash($default_theme);
+
+  db_update('block')
+    ->fields(array(
+      'region' => 'content',
+      'status' => (int) '1',
+      'weight' => (int) '-39',
+    ))
+    ->condition('module', 'views')
+    ->condition('delta', 'add_to_cart_table-block_1')
+    ->condition('theme', $default_theme)
+    ->execute();
+}
