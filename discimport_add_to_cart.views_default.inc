@@ -59,6 +59,17 @@ function discimport_add_to_cart_views_default_views() {
   $handler->display->display_options['relationships']['field_product']['id'] = 'field_product';
   $handler->display->display_options['relationships']['field_product']['table'] = 'commerce_product';
   $handler->display->display_options['relationships']['field_product']['field'] = 'field_product';
+  /* Felt: Commerce Product: Images */
+  $handler->display->display_options['fields']['field_images']['id'] = 'field_images';
+  $handler->display->display_options['fields']['field_images']['table'] = 'field_data_field_images';
+  $handler->display->display_options['fields']['field_images']['field'] = 'field_images';
+  $handler->display->display_options['fields']['field_images']['label'] = 'Billeder';
+  $handler->display->display_options['fields']['field_images']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_images']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => '',
+  );
+  $handler->display->display_options['fields']['field_images']['delta_offset'] = '0';
   /* Felt: Commerce Product: Quantity input field */
   $handler->display->display_options['fields']['add_to_cart_quantity']['id'] = 'add_to_cart_quantity';
   $handler->display->display_options['fields']['add_to_cart_quantity']['table'] = 'commerce_product';
@@ -76,17 +87,6 @@ function discimport_add_to_cart_views_default_views() {
   $handler->display->display_options['fields']['commerce_price']['settings'] = array(
     'calculation' => '0',
   );
-  /* Felt: Commerce Product: Images */
-  $handler->display->display_options['fields']['field_images']['id'] = 'field_images';
-  $handler->display->display_options['fields']['field_images']['table'] = 'field_data_field_images';
-  $handler->display->display_options['fields']['field_images']['field'] = 'field_images';
-  $handler->display->display_options['fields']['field_images']['label'] = 'Billeder';
-  $handler->display->display_options['fields']['field_images']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_images']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
-  );
-  $handler->display->display_options['fields']['field_images']['delta_offset'] = '0';
   /* Felt: Commerce Product: Color */
   $handler->display->display_options['fields']['field_color']['id'] = 'field_color';
   $handler->display->display_options['fields']['field_color']['table'] = 'field_data_field_color';
@@ -175,9 +175,9 @@ function discimport_add_to_cart_views_default_views() {
     t('næste ›'),
     t('sidste »'),
     t('Indholdselement referencing products from field_product'),
+    t('Billeder'),
     t('Quantity'),
     t('Pris'),
-    t('Billeder'),
     t('Farve'),
     t('Lager'),
     t('Plastic'),
