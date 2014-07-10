@@ -63,6 +63,7 @@ function discimport_add_to_cart_views_default_views() {
   $handler->display->display_options['fields']['add_to_cart_quantity']['id'] = 'add_to_cart_quantity';
   $handler->display->display_options['fields']['add_to_cart_quantity']['table'] = 'commerce_product';
   $handler->display->display_options['fields']['add_to_cart_quantity']['field'] = 'add_to_cart_quantity';
+  $handler->display->display_options['fields']['add_to_cart_quantity']['label'] = 'Quantity';
   $handler->display->display_options['fields']['add_to_cart_quantity']['default_quantity'] = '0';
   $handler->display->display_options['fields']['add_to_cart_quantity']['combine'] = 1;
   $handler->display->display_options['fields']['add_to_cart_quantity']['display_path'] = 1;
@@ -174,7 +175,7 @@ function discimport_add_to_cart_views_default_views() {
     t('næste ›'),
     t('sidste »'),
     t('Indholdselement referencing products from field_product'),
-    t('Quantity input field'),
+    t('Quantity'),
     t('Pris'),
     t('Billeder'),
     t('Farve'),
