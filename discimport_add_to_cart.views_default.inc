@@ -55,11 +55,11 @@ function discimport_add_to_cart_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Forbindelse: Commerce Product: Referencing Indholdselement */
+  /* Relationship: Commerce Product: Referencing Node */
   $handler->display->display_options['relationships']['field_product']['id'] = 'field_product';
   $handler->display->display_options['relationships']['field_product']['table'] = 'commerce_product';
   $handler->display->display_options['relationships']['field_product']['field'] = 'field_product';
-  /* Felt: Commerce Product: Images */
+  /* Field: Commerce Product: Images */
   $handler->display->display_options['fields']['field_images']['id'] = 'field_images';
   $handler->display->display_options['fields']['field_images']['table'] = 'field_data_field_images';
   $handler->display->display_options['fields']['field_images']['field'] = 'field_images';
@@ -70,7 +70,7 @@ function discimport_add_to_cart_views_default_views() {
     'image_link' => '',
   );
   $handler->display->display_options['fields']['field_images']['delta_offset'] = '0';
-  /* Felt: Commerce Product: Quantity input field */
+  /* Field: Commerce Product: Quantity input field */
   $handler->display->display_options['fields']['add_to_cart_quantity']['id'] = 'add_to_cart_quantity';
   $handler->display->display_options['fields']['add_to_cart_quantity']['table'] = 'commerce_product';
   $handler->display->display_options['fields']['add_to_cart_quantity']['field'] = 'add_to_cart_quantity';
@@ -78,7 +78,7 @@ function discimport_add_to_cart_views_default_views() {
   $handler->display->display_options['fields']['add_to_cart_quantity']['default_quantity'] = '0';
   $handler->display->display_options['fields']['add_to_cart_quantity']['combine'] = 1;
   $handler->display->display_options['fields']['add_to_cart_quantity']['display_path'] = 1;
-  /* Felt: Commerce Product: Price */
+  /* Field: Commerce Product: Price */
   $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
   $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
   $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
@@ -87,7 +87,7 @@ function discimport_add_to_cart_views_default_views() {
   $handler->display->display_options['fields']['commerce_price']['settings'] = array(
     'calculation' => '0',
   );
-  /* Felt: Commerce Product: Color */
+  /* Field: Commerce Product: Color */
   $handler->display->display_options['fields']['field_color']['id'] = 'field_color';
   $handler->display->display_options['fields']['field_color']['table'] = 'field_data_field_color';
   $handler->display->display_options['fields']['field_color']['field'] = 'field_color';
@@ -97,7 +97,7 @@ function discimport_add_to_cart_views_default_views() {
     'view_mode' => 'add_to_cart_form',
     'links' => 0,
   );
-  /* Felt: Commerce Product: Stock */
+  /* Field: Commerce Product: Stock */
   $handler->display->display_options['fields']['commerce_stock']['id'] = 'commerce_stock';
   $handler->display->display_options['fields']['commerce_stock']['table'] = 'field_data_commerce_stock';
   $handler->display->display_options['fields']['commerce_stock']['field'] = 'commerce_stock';
@@ -108,18 +108,18 @@ function discimport_add_to_cart_views_default_views() {
     'scale' => '2',
     'prefix_suffix' => 1,
   );
-  /* Felt: Commerce Product: Plastic */
+  /* Field: Commerce Product: Plastic */
   $handler->display->display_options['fields']['field_plastic']['id'] = 'field_plastic';
   $handler->display->display_options['fields']['field_plastic']['table'] = 'field_data_field_plastic';
   $handler->display->display_options['fields']['field_plastic']['field'] = 'field_plastic';
   $handler->display->display_options['fields']['field_plastic']['type'] = 'taxonomy_term_reference_plain';
-  /* Felt: Commerce Product: Weight */
+  /* Field: Commerce Product: Weight */
   $handler->display->display_options['fields']['field_weight']['id'] = 'field_weight';
   $handler->display->display_options['fields']['field_weight']['table'] = 'field_data_field_weight';
   $handler->display->display_options['fields']['field_weight']['field'] = 'field_weight';
   $handler->display->display_options['fields']['field_weight']['label'] = 'Vægt';
   $handler->display->display_options['fields']['field_weight']['type'] = 'taxonomy_term_reference_plain';
-  /* Kontekstuelt filter: Indhold: Nid */
+  /* Contextual filter: Content: Nid */
   $handler->display->display_options['arguments']['nid']['id'] = 'nid';
   $handler->display->display_options['arguments']['nid']['table'] = 'node';
   $handler->display->display_options['arguments']['nid']['field'] = 'nid';
@@ -141,7 +141,7 @@ function discimport_add_to_cart_views_default_views() {
   /* Display: Blok */
   $handler = $view->new_display('block', 'Blok', 'block_1');
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Kontekstuelt filter: Indhold: Nid */
+  /* Contextual filter: Content: Nid */
   $handler->display->display_options['arguments']['nid']['id'] = 'nid';
   $handler->display->display_options['arguments']['nid']['table'] = 'node';
   $handler->display->display_options['arguments']['nid']['field'] = 'nid';
@@ -174,7 +174,7 @@ function discimport_add_to_cart_views_default_views() {
     t('‹ forrige'),
     t('næste ›'),
     t('sidste »'),
-    t('Indholdselement referencing products from field_product'),
+    t('Node referencing products from field_product'),
     t('Billeder'),
     t('Quantity'),
     t('Pris'),
@@ -184,6 +184,7 @@ function discimport_add_to_cart_views_default_views() {
     t('Vægt'),
     t('Alle'),
     t('Blok'),
+    t('more'),
   );
   $export['add_to_cart_table'] = $view;
 
