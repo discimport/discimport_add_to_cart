@@ -55,19 +55,16 @@ function discimport_add_to_cart_form_alter(&$form, &$form_state, $form_id) {
  */
 function discimport_add_to_cart_stock_validation($form, &$form_state) {
   foreach (element_children($form['add_to_cart_quantity']) as $row_num) {
-    if ($form_state['values']['add_to_cart_quantity'][$row_num] > 0) {
-      // We have a quantity worth checking.
+    // Since we have a different form state, provide the Commerce Stock
+    // validation module with what it needs.
 
-      // Since we have a different form state, provide the Commerce Stock
-      // validation module with what it needs.
-
-      $stock_form_state = array(
-        'input' => array(
-          'quantity' => $form_state['values']['add_to_cart_quantity'][$row_num],
-          'product_id' => $form['add_to_cart_quantity'][$row_num]['#product_id'],
-        ),
-      );
-      commerce_stock_add_to_cart_validate($form, $stock_form_state);
-    }
+    $stock_form_state = array(
+      'values' => array(
+        'quantity' => $form_state['values']['add_to_cart_quantity'][$row_num],
+        'product_id' => $form['add_to_cart_quantity'][$row_num]['#product_id'],
+      ),
+    );
+    $stock_form_state['submitted'] = TRUE;
+    commerce_stock_add_to_cart_validate($form, $stock_form_state);
   }
 }
