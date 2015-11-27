@@ -33,14 +33,8 @@ function discimport_add_to_cart_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['exposed_sorts_label'] = 'Sortér efter';
   $handler->display->display_options['exposed_form']['options']['sort_asc_label'] = 'Stigende';
   $handler->display->display_options['exposed_form']['options']['sort_desc_label'] = 'Faldende';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_label'] = 'Antal elementer';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = '- Alle -';
-  $handler->display->display_options['pager']['options']['expose']['offset_label'] = 'Forskydning';
-  $handler->display->display_options['pager']['options']['tags']['first'] = '« første';
-  $handler->display->display_options['pager']['options']['tags']['previous'] = '‹ forrige';
-  $handler->display->display_options['pager']['options']['tags']['next'] = 'næste ›';
-  $handler->display->display_options['pager']['options']['tags']['last'] = 'sidste »';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'product_id' => 'product_id',
@@ -78,25 +72,6 @@ function discimport_add_to_cart_views_default_views() {
   $handler->display->display_options['fields']['add_to_cart_quantity']['default_quantity'] = '0';
   $handler->display->display_options['fields']['add_to_cart_quantity']['combine'] = 1;
   $handler->display->display_options['fields']['add_to_cart_quantity']['display_path'] = 1;
-  /* Field: Commerce Product: Price */
-  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
-  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
-  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
-  $handler->display->display_options['fields']['commerce_price']['label'] = 'Pris';
-  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
-  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
-    'calculation' => '0',
-  );
-  /* Field: Commerce Product: Color */
-  $handler->display->display_options['fields']['field_color']['id'] = 'field_color';
-  $handler->display->display_options['fields']['field_color']['table'] = 'field_data_field_color';
-  $handler->display->display_options['fields']['field_color']['field'] = 'field_color';
-  $handler->display->display_options['fields']['field_color']['label'] = 'Farve';
-  $handler->display->display_options['fields']['field_color']['type'] = 'entityreference_entity_view';
-  $handler->display->display_options['fields']['field_color']['settings'] = array(
-    'view_mode' => 'add_to_cart_form',
-    'links' => 0,
-  );
   /* Field: Commerce Product: Stock */
   $handler->display->display_options['fields']['commerce_stock']['id'] = 'commerce_stock';
   $handler->display->display_options['fields']['commerce_stock']['table'] = 'field_data_commerce_stock';
@@ -108,17 +83,39 @@ function discimport_add_to_cart_views_default_views() {
     'scale' => '2',
     'prefix_suffix' => 1,
   );
+  /* Field: Commerce Product: Color */
+  $handler->display->display_options['fields']['field_color']['id'] = 'field_color';
+  $handler->display->display_options['fields']['field_color']['table'] = 'field_data_field_color';
+  $handler->display->display_options['fields']['field_color']['field'] = 'field_color';
+  $handler->display->display_options['fields']['field_color']['label'] = 'Farve';
+  $handler->display->display_options['fields']['field_color']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_color']['type'] = 'entityreference_entity_view';
+  $handler->display->display_options['fields']['field_color']['settings'] = array(
+    'view_mode' => 'add_to_cart_form',
+    'links' => 0,
+  );
   /* Field: Commerce Product: Plastic */
   $handler->display->display_options['fields']['field_plastic']['id'] = 'field_plastic';
   $handler->display->display_options['fields']['field_plastic']['table'] = 'field_data_field_plastic';
   $handler->display->display_options['fields']['field_plastic']['field'] = 'field_plastic';
+  $handler->display->display_options['fields']['field_plastic']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_plastic']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Commerce Product: Weight */
   $handler->display->display_options['fields']['field_weight']['id'] = 'field_weight';
   $handler->display->display_options['fields']['field_weight']['table'] = 'field_data_field_weight';
   $handler->display->display_options['fields']['field_weight']['field'] = 'field_weight';
   $handler->display->display_options['fields']['field_weight']['label'] = 'Vægt';
+  $handler->display->display_options['fields']['field_weight']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_weight']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Commerce Product: Price */
+  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['label'] = 'Pris';
+  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
+    'calculation' => '0',
+  );
   /* Contextual filter: Content: Nid */
   $handler->display->display_options['arguments']['nid']['id'] = 'nid';
   $handler->display->display_options['arguments']['nid']['table'] = 'node';
@@ -159,33 +156,6 @@ function discimport_add_to_cart_views_default_views() {
     'discs' => 'discs',
   );
   $handler->display->display_options['arguments']['nid']['validate']['fail'] = 'empty';
-  $translatables['add_to_cart_table'] = array(
-    t('Master'),
-    t('mere'),
-    t('Udfør'),
-    t('Gendan'),
-    t('Sortér efter'),
-    t('Stigende'),
-    t('Faldende'),
-    t('Antal elementer'),
-    t('- Alle -'),
-    t('Forskydning'),
-    t('« første'),
-    t('‹ forrige'),
-    t('næste ›'),
-    t('sidste »'),
-    t('Node referencing products from field_product'),
-    t('Billeder'),
-    t('Quantity'),
-    t('Pris'),
-    t('Farve'),
-    t('Lager'),
-    t('Plastic'),
-    t('Vægt'),
-    t('Alle'),
-    t('Blok'),
-    t('more'),
-  );
   $export['add_to_cart_table'] = $view;
 
   return $export;
